@@ -10,7 +10,7 @@ sse_connections: list[asyncio.Queue] = [] # message queue for all connected user
 class SSEBroadcaster:
     async def broadcast(self, event_type: str, data: str):
         message = {
-            "id": None,
+            "id": None, # ID is not tracked in this basic version, later for persistent storage
             "type": event_type,
             "data": data
         }
@@ -20,6 +20,9 @@ class SSEBroadcaster:
 broadcaster = SSEBroadcaster()
 
 async def sse_event_stream(queue: asyncio.Queue):
+    """
+    Async generator that continuously yields messages event stream from a queue.
+    """
     try:
         while True:
             msg = await queue.get()
@@ -28,7 +31,7 @@ async def sse_event_stream(queue: asyncio.Queue):
                 f"data: {msg['data']}\n\n"
             )
     except asyncio.CancelledError:
-        pass  # logout
+        pass  # when disconnects, cleanly exit
 
 @router.get("/sse")
 async def sse_endpoint(request: Request, last_event_id: Optional[int] = Query(None)):
