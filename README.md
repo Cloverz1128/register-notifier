@@ -14,10 +14,6 @@ A simple full-stack web app that demonstrates user authentication with real-time
 
 ## Quick Start
 
-The frontend runs on http://localhost:5173
-
-The backend API runs on http://localhost:8000
-
 ```bash
 # Create and activate virtualenv
 python3 -m venv venv
@@ -25,6 +21,9 @@ source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Edit .env if needed
+cp .env.example .env
 
 # Run backend
 uvicorn app.main:app --reload
@@ -37,6 +36,11 @@ npm run dev
 # Run pytest 
 PYTHONPATH=. pytest -v
 ```
+
+## Default URLs
+* Backend API: http://localhost:8000
+* SSE endpoint: http://localhost:8000/sse
+* Frontend (React): http://localhost:5173
 
 ## Future Improvements
 * Persistent notification history (database-based)
