@@ -39,3 +39,9 @@ PYTHONPATH=. pytest -v
 ```
 
 ## Future Improvements
+* Persistent notification history (database-based)
+* SSE reconnect logic with Last-Event-ID
+* User inactivity auto-logout
+
+## License
+MIT License
